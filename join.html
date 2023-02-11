@@ -53,7 +53,7 @@ button:hover {
 
 /* box shape input field */
 .box {
-  width: 200% auto;
+  width: 300% auto;
   height: 50px;
   box-sizing: border-box;
   padding: 5px 0 5px 15px;
@@ -143,7 +143,7 @@ section {
 
 .info#info__id button {
   position: absolute;
-  width: 50px;
+  width: 40px;
   height: 40px;
   top: 0;
   bottom: 0;
@@ -205,7 +205,7 @@ section {
 
 /* SUBMIT */
 button#submit {
-  width: 100%;
+  width: 60%;
   height: 45px;
   border-radius: 3px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
@@ -288,7 +288,6 @@ button#submit {
     // 간단한 회원가입 함수입니다.
             // 아이디, 비밀번호, 닉네임을 받아 DB에 저장합니다.
             function join() {
-              alert('test')
                 $.ajax({
                     type: "POST",
                     url: "/api/join",
@@ -307,6 +306,27 @@ button#submit {
                 })
             }
 
+            function checkDup() {
+              let userId = $("#userId").val()
+              if (userId == "") {
+                alert("id를 입력해주세요")
+              } else {
+                $.ajax({
+                  type: "POST",
+                  url: "/join/checkDup",
+                  data: {
+                    id: userId
+                  },
+                  success: function (response) {
+                    if (response["result"] == 'fail') {
+                      alert(response['msg'])
+                    } else {
+                      alert(response['msg'])
+                    }
+                  }
+                })
+              }
+            }
 </script>
 </head>
 <body>
@@ -322,18 +342,20 @@ button#submit {
       <section>
         <div class="info" id="info__id">
           <div id="id-input">
-            <input class="box" type="text" id="userId" placeholder="id :) "/>
-<!--            <button id="id-check">중복 확인</button>-->
+          <input class="box" type="text" id="userId" placeholder="id를 입력해주세요 "/>
+            <button id="id-check" onclick="checkDup()"> 중복확인 </button>
+            <div id="btn-check-dup" class="control">
           </div>
           <div class="error-msg"></div>
         </div>
+          <p></p>
         <div class="info" id="info__pw">
-          <input class="box" type="password" id="userPw" placeholder="pw :)"/>
+          <input class="box" type="password" id="userPw" placeholder="pw를 입력해주세요 "/>
           <div class="error-msg"></div>
         </div>
-<!--        <div class="info" id="info__pwRe">-->
-<!--          <input class="box" type="password" placeholder="비밀번호 재입력"/>-->
-<!--          <div class="error-msg"></div>-->
+        <div class="info" id="info__pwRe">
+          <input class="box" type="password" id="userPw2" placeholder="비밀번호 재입력"/>
+          <div class="error-msg"></div>
         </div>
 
       </section>
