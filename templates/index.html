@@ -29,7 +29,7 @@
         }
 
         .postWrap {
-            background-color: black;
+            /* background-color: black; */
             margin: 20px auto 0px auto;
             width: 95%;
             max-width: 1200px;
@@ -54,7 +54,7 @@
 
         .btnwrap {
             width: 100%;
-            margin: 0px 10px 60px auto;
+            margin: 5px 10px 60px auto;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -66,11 +66,12 @@
             border-radius: 20px;
             width: 100px;
             margin-left: 5px;
+            
         }
 
         .loginwrap {
             /* background-color: black; */
-            margin-left: 30%;
+            margin-left: 60%;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -101,23 +102,8 @@
     <div class="mytitle">
 
         <div class='btnwrap'>
-            <button type="button" class="btn btn-outline-primary">글쓰기</button>
-
+            <button onclick ="location.href='write.html'" type="button" class="btn btn-outline-primary">글쓰기</button>
             <div class='loginwrap'>
-                <div class="row mb-3">
-                    <!-- <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Email</label> -->
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control form-control-sm" id="colFormLabelSm"
-                            placeholder="ID">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <!-- <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Email</label> -->
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control form-control-sm" id="colFormLabelSm"
-                            placeholder="password">
-                    </div>
-                </div>
                 <button onclick="loginTog()" id='loginbtn' type="button" class="btn btn-outline-secondary">로그인</button>
                 <button type="button" class="btn btn-outline-secondary">회원가입</button>
             </div>
