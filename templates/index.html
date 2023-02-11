@@ -32,9 +32,10 @@
             /* background-color: black; */
             margin: 20px auto 0px auto;
             width: 95%;
+            min-width: 1000px;
             max-width: 1200px;
-            display: flex;
-            flex-direction: row;
+            /* display: flex;
+            flex-direction: row; */
             align-items: center;
             justify-content: center;
         }
@@ -43,14 +44,13 @@
         hr.hr-1 {
             border: 0;
             height: 1px;
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+            background-image: linear-gradient(to right, rgba(1, 1, 1, 1), rgba(0, 0, 0, 0.75), rgba(1, 1, 1, 1));
         }
 
         hr.hr-1_card {
 
             border: 0;
-            height: 1px;
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+            height: 10px;
         }
 
         .btnwrap {
@@ -86,71 +86,149 @@
             margin-right: 5px;
         }
 
-        .card-title{
+        .card-title {
             /* background-color: aquamarine; */
             height: 50px;
-            text-align:center;
+            text-align: center;
             font-size: large;
         }
-        .card-text{
+
+        .card-text {
             /* background-color: blueviolet; */
             /* width: 200px; */
             height: 150px;
-            text-align:left;
+            text-align: left;
             font-size: medium;
         }
-        .card-tag{
-            
+
+        .card-tag {
+
             /* background-color: brown; */
             color: lightgray;
         }
 
+        .card-body {
+            /* background-color: aquamarine; */
+            margin: 0px 5px 0px 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
+        .commbtn {
+            width: 300px;
+            /* background-color: aqua; */
+        }
+        .commbtn > button{
+            margin-right: 0px;
+            float: right;
+        }
+
+        .Writebtn {
+            width: 250px;
+            /* background-color: aqua; */
+        }
+        .Writebtn > button{
+            margin-top: 20px;
+            float: right;
+        }
+
+        .WritePop{
+            margin-top: 20px;
+        }
     </style>
     <script>
         $(document).ready(function () {
             listing();
         });
 
-        function listing(){
+        function listing() {
             $.ajax({
                 type: 'GET',
                 url: '/diary/post',
                 data: {},
                 success: function (response) {
                     let rows = response['write']
-                    for (let i=0;i<rows.length;i++){
+                    for (let i = 0; i < rows.length; i++) {
                         let title = rows[i]['title']
                         let contents = rows[i]['contents']
                         let tag = rows[i]['tag']
                         // let emo = rows[i]['emo']
+                        // let image = rows[i]['image']
+
+                        // const imageUrl = image;
+                        // const card = document.getElementById('cardBody');
+                        // console.log(card)
+                        // card.style.backgroundImage = `url(${imageUrl})`;
 
                         temp_html = `<div id = 'cardBody' class="col">
-                                        <div class="card h-100">
+                                        <div id ='card-body' class="card h-100">
                                             <div class="card-body">
                                                 <h5 class="card-title">${title}</h5>
                                                 <hr class="hr-1_card">
                                                 <p class="card-text">${contents}</p>
                                                 <p class="card-tag">${tag}</p>
                                                 <hr class="hr-1_card">
-                                                <div class='commbtn'>
-                                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                                        <button class="btn btn-outline-success me-md-2" type="button">댓글보기</button>
-                                                        <button class="btn btn-outline-success" type="button">댓글작성</button>
+                                                <footer>
+                                                    <div class='commbtn'>
+                                                        <button onclick = 'Showcomm()' id = 'Showcomm' class="btn btn-outline-success me-md-2" type="button">댓글보기</button>
                                                     </div>
-                                                </div>
-                                                
+                                                </footer>
                                             </div>
+
                                         </div>
+                                    </div>
+
+                                    <div id = 'CommPop' class="Commcard" style="width: 18rem;display: none;">
+                                        <div class="card-header">
+                                            댓글
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">댓글1</li>
+                                            <li class="list-group-item">댓글2</li>
+                                            <li class="list-group-item">댓글2</li>
+
+                                            <footer class = Writebtn>
+                                                <div id = 'WritePop' class = 'WritePop' style="display: none;">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" placeholder="✏" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">완료!</button>
+                                                    </div>
+                                                </div>    
+                                                <button onclick = 'WriteComm()' class="btn btn-outline-success" type="button">댓글작성</button>
+                                            </footer>
+                                        </ul>
                                     </div>`
-                        
+
                         $('#list_box').append(temp_html)
                     }
 
 
                 }
-        })
-    }
+            })
+        }
+
+        function Showcomm() {
+            var popup = document.getElementById("CommPop");
+            console.log(popup)
+            if (popup.style.display === "none") {
+                popup.style.display = "block";
+            } else {
+                popup.style.display = "none";
+            }
+        }
+
+        function WriteComm(){
+            var inputpop = document.getElementById("WritePop");
+            console.log(inputpop)
+            if (inputpop.style.display === "none") {
+                inputpop.style.display = "block";
+            } else {
+                inputpop.style.display = "none";
+            }
+        }
+
         // $(document).ready{
         //     function LogOut() {
         //         alert('로그아웃 되셨습니다.')
@@ -162,7 +240,7 @@
 
 <body>
     <div class="mytitle">
-<!-- 로그인 파트 -->
+        <!-- 로그인 파트 -->
         <div class='btnwrap'>
             <button onclick="location.href = '/diary'" value="write" type="button"
                 class="btn btn-outline-primary">글쓰기</button>
@@ -180,8 +258,7 @@
     <hr class="hr-1">
 
     <div class='postWrap'>
-        <div id = 'list_box' class="row row-cols-1 row-cols-md-3 g-4">
-
+        <div id='list_box' class="row row-cols-1 row-cols-md-3 g-4">
         </div>
     </div>
     <hr class="hr-1">

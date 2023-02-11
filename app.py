@@ -24,12 +24,14 @@ def write_post():
     contents_receive = request.form['contents_give']
     tag_receive = request.form['tag_give']
     emo_receive = request.form['emo_give']
+    image_receive = request.form['image_give']
 
     doc = {
-        'title': title_receive,
-        'contents': contents_receive,
-        'tag': tag_receive,
-        'emo': emo_receive
+        'title':title_receive,
+        'contents':contents_receive,
+        'tag':tag_receive,
+        'emo': emo_receive,
+        'image': image_receive
     }
     db.write.insert_one(doc)
 
