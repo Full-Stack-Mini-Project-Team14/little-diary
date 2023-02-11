@@ -1,64 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
-
 
     <title>일기 쓰기</title>
 
     <style>
-        #sidebar {
-            /*width: 0px;*/
-            /*height: 0px;*/
-            /*padding: 0px;*/
-            /*margin: 0px;*/
-            font-size: xx-large;
-
-        }
-
-        .on-off {
-            font-size: xx-large;
-        }
-
-        .emo {
-            font-size: xx-large;
-        }
-
         .diaryWrap {
             /* background-color: blue; */
             width: 50%;
-            left: 50%;
-            max-width: 600px;
+            left: 40%;
+            max-width: 800px;
             margin: 50px 0px 0px -200px;
             position: absolute;
             box-shadow: 0px 0px 3px 0px gray;
 
-
         }
 
-        .writeTitle {
-            /* background-color: blue; */
+
+        .mypic {
+            width: 100%;
+            height: 200px;
+
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://t1.daumcdn.net/cfile/tistory/99B95B335F20D6E125');
+            background-position: center;
+            background-size: cover;
+
+            color: white;
+
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
         }
 
-        .writebtn>button {
-            border-radius: 30px;
+        .cover {
+            font-family: Georgia;
+
         }
+
+
+        .main {
+            font-family: fantasy;
+            font-size: x-large;
+            margin: 10px;
+        }
+
+        .file-label {
+            margin: 10px;
+            background-color: #5b975b;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            width: 120px;
+            height: 50px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .file {
+            display: none;
+        }
+
+        .btn {
+            width: 90px;
+            height: 46px;
+            text-align: center;
+            padding: 10px 0;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
     </style>
     <script>
         function save_write() {
@@ -66,60 +92,86 @@
             let contents = $('#contents').val()
             let tag = $('#tag').val()
             let emo = $('#emo').val()
+            let image = $('#image').val()
 
             $.ajax({
                 type: 'POST',
-                url: '/diary/write',
-                data: { title_give: title, contents_give: contents, tag_give: tag, emo_give: emo },
+                url: '/api/write',
+                data: {title_give: title, contents_give: contents, tag_give: tag, emo_give: emo, image_give: image},
                 success: function (response) {
                     alert(response['msg'])
                     window.location.reload()
                 }
             });
         }
+        function setThumbnail(event) {
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+          var img = document.createElement("img");
+          img.setAttribute("src", event.target.result);
+          document.querySelector("div#image_container").appendChild(img);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+      }
 
     </script>
 </head>
-
 <body>
-    <div class=diaryWrap>
-        <div class="card">
-            <div class="card-body">
-                <h1 class='writeTitle'> 일기 쓰기 ✒</h1>
-                <input type="text" id="title" class="form-control mt-4 mb-2" placeholder="제목을 입력해주세요." required>
-
-                <div class="form-group">
-                    <textarea id="contents" class="form-control" rows="10" placeholder="내용을 입력해주세요" required></textarea>
-                </div>
-
-                <input id="tag" type="text" class="form-control mt-4 mb-2" placeholder="#태그를 입력해주세요." required>
-
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="emo">💚이모티콘💚</label>
-                    <select class="form-select" id="emo">
-                        <option selected>오늘의 기분</option>
-                        <option value="😄">😄</option>
-                        <option value="😠">😠</option>
-                        <option value="😍">😍</option>
-                        <option value="😢">😢</option>
-                        <option value="🥳">🥳</option>
-                        <option value="😨">😨</option>
-                    </select>
-                </div>
+<div class=diaryWrap>
+<div class="mypic">
+    <h1 class='cover'>LITTLE DIARY</h1>
+</div>
+<h1 class='main'> 일기 쓰기 </h1>
+<hr class="one">
 
 
+<<<<<<< HEAD
                 <div class="writebtn">
                     <button onclick="save_write()" type="button" class="btn btn-success">등록</button>
                     <button onclick="location.href='/'" type="button" class="btn btn-outline-secondary">취소</button>
                 </div>
             </div>
         </div>
+=======
+<input  type="text" id="title" class="form-control mt-4 mb-2"
+       placeholder="제목을 입력해주세요." required
+>
+<label class="file-label" for="image">🎨이미지 첨부</label>
+ <input class="file" type="file" id="image" accept="image/*" onchange="setThumbnail(event);"/>
+<div id="image_container"></div>
+
+<div class="form-group">
+		<textarea id="contents" class="form-control" rows="10"
+                  placeholder="내용을 입력해주세요" required
+        ></textarea>
+</div>
+
+<input id="tag" type="text" class="form-control mt-4 mb-2"
+       placeholder="#태그를 입력해주세요." required
+>
+
+<div class="input-group mb-3">
+    <label class="input-group-text" for="emo">💚이모티콘💚</label>
+    <select class="form-select" id="emo">
+        <option selected>오늘의 기분</option>
+        <option value="😄">😄</option>
+        <option value="😠">😠</option>
+        <option value="😍">😍</option>
+        <option value="😢">😢</option>
+        <option value="🥳">🥳</option>
+        <option value="😨">😨</option>
+    </select>
+</div>
+>>>>>>> 384c74f9e35d660eee3dace4fedbe02504c8590f
 
 
-    </div>
+<button onclick="save_write()" type="button" class="btn btn-success">등록</button>
+<button onclick="history.back()" type="button" value="Go Back!" class="btn btn-danger">취소</button>
 
 
 
+</div>
 </body>
-
 </html>
