@@ -17,8 +17,17 @@
     <title>일기 쓰기</title>
 
     <style>
+    #sidebar {
+    /*width: 0px;*/
+    /*height: 0px;*/
+    /*padding: 0px;*/
+    /*margin: 0px;*/
+    font-size : xx-large;
 
-
+}
+    .on-off{
+        font-size : xx-large;
+    }
     .emo{
         font-size : xx-large;
     }
@@ -28,11 +37,12 @@
             let title = $('#title').val()
             let contents = $('#contents').val()
             let tag = $('#tag').val()
+            let emo = $('#emo').val()
 
             $.ajax({
                 type: 'POST',
                 url: '/api/write',
-                data: { title_give: title, contents_give : contents, tag_give : tag},
+                data: { title_give: title, contents_give : contents, tag_give : tag, emo_give: emo},
                 success: function (response) {
                     alert(response['msg'])
                     window.location.reload()
@@ -59,9 +69,21 @@
         <input id="tag"  type="text"  class="form-control mt-4 mb-2"
                placeholder="#태그를 입력해주세요." required
         >
-        <div class="emo">
-            😄 😠 😍 😢 🥳 😨
+
+    <div class="input-group mb-3">
+            <label class="input-group-text" for="emo">💚이모티콘💚</label>
+            <select class="form-select" id="emo">
+                <option selected>오늘의 기분</option>
+                <option value="😄">😄</option>
+                <option value="😠">😠</option>
+                <option value="😍">😍</option>
+                <option value="😢">😢</option>
+                <option value="🥳">🥳</option>
+                <option value="😨">😨</option>
+            </select>
         </div>
+
+
 
         <button onclick="save_write()" type="button" class="btn btn-success">등록</button>
 
