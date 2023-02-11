@@ -24,7 +24,7 @@
     }
     </style>
     <script>
-        function save_write() {
+       function save_write() {
             let title = $('#title').val()
             let contents = $('#contents').val()
             let tag = $('#tag').val()
@@ -32,7 +32,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/api/write',
-                data: { title_give: title, _give : address, size_give : size},
+                data: { title_give: title, contents_give : contents, tag_give : tag},
                 success: function (response) {
                     alert(response['msg'])
                     window.location.reload()
@@ -46,22 +46,24 @@
     <h1> 일기 쓰기</h1>
 
 
-        <input type="text" name="bdTitle" class="form-control mt-4 mb-2"
+        <input type="text" id="title" class="form-control mt-4 mb-2"
                placeholder="제목을 입력해주세요." required
         >
+
         <div class="form-group">
-		<textarea class="form-control" rows="10" name="bdContent"
+		<textarea id="contents" class="form-control" rows="10"
                   placeholder="내용을 입력해주세요" required
         ></textarea>
         </div>
-        <input type="text" name="bdTitle" class="form-control mt-4 mb-2"
+
+        <input id="tag"  type="text"  class="form-control mt-4 mb-2"
                placeholder="#태그를 입력해주세요." required
         >
         <div class="emo">
-            😄 😠 😍 😢 🥳 😨a
+            😄 😠 😍 😢 🥳 😨
         </div>
 
-        <button type="submit" class="btn btn-secondary mb-3">등록</button>
+        <button onclick="save_write()" type="button" class="btn btn-success">등록</button>
 
 
 </body>
