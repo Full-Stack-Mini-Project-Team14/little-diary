@@ -66,7 +66,7 @@
             border-radius: 20px;
             width: 100px;
             margin-left: 5px;
-            
+
         }
 
         .loginwrap {
@@ -87,13 +87,13 @@
             margin-right: 5px;
 
         }
-
-
     </style>
     <script>
-
-
-
+        // $(document).ready{
+        //     function LogOut() {
+        //         alert('로그아웃 되셨습니다.')
+        //     }
+        // }
 
     </script>
 </head>
@@ -102,10 +102,13 @@
     <div class="mytitle">
 
         <div class='btnwrap'>
-            <button onclick ="location.href='write.html'" type="button" class="btn btn-outline-primary">글쓰기</button>
+            <button onclick="location.href='/diary'" value="write" type="button"
+                class="btn btn-outline-primary">글쓰기</button>
             <div class='loginwrap'>
-                <button onclick="loginTog()" id='loginbtn' type="button" class="btn btn-outline-secondary">로그인</button>
-                <button type="button" class="btn btn-outline-secondary">회원가입</button>
+                <button id='login_btn' type="button" class="btn btn-outline-secondary"
+                    onclick="location.href = '/diary/login'" value="login">로그인</button>
+                <button onclick="location.href='/diary/join'" value="join" type="button"
+                    class="btn btn-outline-secondary">회원가입</button>
             </div>
         </div>
 

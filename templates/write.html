@@ -69,7 +69,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/api/write',
+                url: '/diary/write',
                 data: { title_give: title, contents_give: contents, tag_give: tag, emo_give: emo },
                 success: function (response) {
                     alert(response['msg'])
