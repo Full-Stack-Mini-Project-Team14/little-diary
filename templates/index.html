@@ -39,14 +39,15 @@
             justify-content: center;
         }
 
-        .postWrap>.col {
-            width: 100px;
-            height: 300px;
-            margin: 20px 10px 0px 10px;
-
-        }
 
         hr.hr-1 {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+        }
+
+        hr.hr-1_card {
+
             border: 0;
             height: 1px;
             background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
@@ -76,8 +77,6 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-
-
         }
 
         .loginwrap>button {
@@ -85,10 +84,73 @@
             border: none;
             width: 100px;
             margin-right: 5px;
-
         }
+
+        .card-title{
+            /* background-color: aquamarine; */
+            height: 50px;
+            text-align:center;
+            font-size: large;
+        }
+        .card-text{
+            /* background-color: blueviolet; */
+            /* width: 200px; */
+            height: 150px;
+            text-align:left;
+            font-size: medium;
+        }
+        .card-tag{
+            
+            /* background-color: brown; */
+            color: lightgray;
+        }
+
+
     </style>
     <script>
+        $(document).ready(function () {
+            listing();
+        });
+
+        function listing(){
+            $.ajax({
+                type: 'GET',
+                url: '/diary/post',
+                data: {},
+                success: function (response) {
+                    let rows = response['write']
+                    for (let i=0;i<rows.length;i++){
+                        let title = rows[i]['title']
+                        let contents = rows[i]['contents']
+                        let tag = rows[i]['tag']
+                        // let emo = rows[i]['emo']
+
+                        temp_html = `<div id = 'cardBody' class="col">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <h5 class="card-title">${title}</h5>
+                                                <hr class="hr-1_card">
+                                                <p class="card-text">${contents}</p>
+                                                <p class="card-tag">${tag}</p>
+                                                <hr class="hr-1_card">
+                                                <div class='commbtn'>
+                                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                        <button class="btn btn-outline-success me-md-2" type="button">댓글보기</button>
+                                                        <button class="btn btn-outline-success" type="button">댓글작성</button>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>`
+                        
+                        $('#list_box').append(temp_html)
+                    }
+
+
+                }
+        })
+    }
         // $(document).ready{
         //     function LogOut() {
         //         alert('로그아웃 되셨습니다.')
@@ -100,9 +162,9 @@
 
 <body>
     <div class="mytitle">
-
+<!-- 로그인 파트 -->
         <div class='btnwrap'>
-            <button onclick="location.href='/diary'" value="write" type="button"
+            <button onclick="location.href = '/diary'" value="write" type="button"
                 class="btn btn-outline-primary">글쓰기</button>
             <div class='loginwrap'>
                 <button id='login_btn' type="button" class="btn btn-outline-secondary"
@@ -118,78 +180,12 @@
     <hr class="hr-1">
 
     <div class='postWrap'>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">여기에 제목이 들어갑니다</h5>
-                        <p class="card-text">여기에 내용이 들어갑니다내용이 길어지면 카드가 길어지나요 확인한번 해보겠습니다</p>
-                        <hr class="hr-1">
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button class="btn btn-primary me-md-2" type="button">댓글보기</button>
-                            <button class="btn btn-primary" type="button">댓글작성</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">여기에 제목이 들어갑니다</h5>
-                        <p class="card-text">여기에 내용이 들어갑니다내용이 길어지면 카드가 길어지나요 확인한번 해보겠습니다
-                            어디까지 길어지나요 얼마나 길어지나요 길어지면 자동으로 길이가 체크되나요
-                        </p>
-                        <hr class="hr-1">
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button class="btn btn-primary me-md-2" type="button">댓글보기</button>
-                            <button class="btn btn-primary" type="button">댓글작성</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">여기에 제목이 들어갑니다</h5>
-                        <p class="card-text">여기에 내용이 들어갑니다내용이 길어지면 카드가 길어지나요 확인한번 해보겠습니다</p>
-                        <hr class="hr-1">
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button class="btn btn-primary me-md-2" type="button">댓글보기</button>
-                            <button class="btn btn-primary" type="button">댓글작성</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">여기에 제목이 들어갑니다</h5>
-                        <p class="card-text">여기에 내용이 들어갑니다내용이 길어지면 카드가 길어지나요 확인한번 해보겠습니다</p>
-                        <hr class="hr-1">
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button class="btn btn-primary me-md-2" type="button">댓글보기</button>
-                            <button class="btn btn-primary" type="button">댓글작성</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">여기에 제목이 들어갑니다</h5>
-                        <p class="card-text">여기에 내용이 들어갑니다내용이 길어지면 카드가 길어지나요 확인한번 해보겠습니다</p>
-                        <hr class="hr-1">
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button class="btn btn-primary me-md-2" type="button">댓글보기</button>
-                            <button class="btn btn-primary" type="button">댓글작성</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div id = 'list_box' class="row row-cols-1 row-cols-md-3 g-4">
 
         </div>
     </div>
     <hr class="hr-1">
+    <!-- 힐링영상 파트 -->
     영상 들어가는 자리
 
 </body>

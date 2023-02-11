@@ -1,14 +1,14 @@
+from pymongo import MongoClient
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-# import requests
-# from bs4 import BeautifulSoup
-#
+import requests
+from bs4 import BeautifulSoup
+
 # import certifi
 # ca = certifi.where()
 
-from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.5omi5fs.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
@@ -16,6 +16,7 @@ db = client.dbsparta
 @app.route('/')
 def home():
     return render_template('index.html')
+
 
 @app.route("/diary/write", methods=["POST"])
 def write_post():
@@ -25,14 +26,23 @@ def write_post():
     emo_receive = request.form['emo_give']
 
     doc = {
-        'title':title_receive,
-        'contents':contents_receive,
-        'tag':tag_receive,
+        'title': title_receive,
+        'contents': contents_receive,
+        'tag': tag_receive,
         'emo': emo_receive
     }
     db.write.insert_one(doc)
 
     return jsonify({'msg': '등록 완료'})
+
+
+@app.route("/diary/post", methods=["GET"])
+def diary_get():
+    write_list = list(db.write.find({}, {'_id': False}))
+    return jsonify({'write':write_list})
+
+
+
 
 
 @app.route('/diary/login')
