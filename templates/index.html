@@ -12,6 +12,7 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
+
     <title>Little Diary</title>
 
     <style>
@@ -50,52 +51,158 @@
             height: 1px;
             background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
         }
+
+        .btnwrap {
+            width: 100%;
+            margin: 0px 10px 60px auto;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .btnwrap>button {
+            border-radius: 20px;
+            width: 100px;
+            margin-left: 5px;
+        }
+
+        .loginwrap {
+            /* background-color: black; */
+            margin-left: 30%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+
+        }
+
+        .loginwrap>button {
+            /* background-color: aliceblue; */
+            border: none;
+            width: 100px;
+            margin-right: 5px;
+
+        }
+
+
     </style>
+    <script>
+
+
+
+
+    </script>
 </head>
 
 <body>
     <div class="mytitle">
+
+        <div class='btnwrap'>
+            <button type="button" class="btn btn-outline-primary">글쓰기</button>
+
+            <div class='loginwrap'>
+                <div class="row mb-3">
+                    <!-- <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Email</label> -->
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control form-control-sm" id="colFormLabelSm"
+                            placeholder="ID">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <!-- <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Email</label> -->
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control form-control-sm" id="colFormLabelSm"
+                            placeholder="password">
+                    </div>
+                </div>
+                <button onclick="loginTog()" id='loginbtn' type="button" class="btn btn-outline-secondary">로그인</button>
+                <button type="button" class="btn btn-outline-secondary">회원가입</button>
+            </div>
+        </div>
+
+
         <h1>📙Little Diary✏</h1>
     </div>
     <hr class="hr-1">
 
-    <div class = 'postWrap'>
+    <div class='postWrap'>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">여기에 제목이 들어갑니다</h5>
-                  <p class="card-text">여기에 내용이 들어갑니다</p>
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">여기에 제목이 들어갑니다</h5>
+                        <p class="card-text">여기에 내용이 들어갑니다내용이 길어지면 카드가 길어지나요 확인한번 해보겠습니다</p>
+                        <hr class="hr-1">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button class="btn btn-primary me-md-2" type="button">댓글보기</button>
+                            <button class="btn btn-primary" type="button">댓글작성</button>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
             <div class="col">
-              <div class="card h-100">  
-                <div class="card-body">
-                  <h5 class="card-title">여기에 제목이 들어갑니다</h5>
-                  <p class="card-text">여기에 내용이 들어갑니다</p>
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">여기에 제목이 들어갑니다</h5>
+                        <p class="card-text">여기에 내용이 들어갑니다내용이 길어지면 카드가 길어지나요 확인한번 해보겠습니다
+                            어디까지 길어지나요 얼마나 길어지나요 길어지면 자동으로 길이가 체크되나요
+                        </p>
+                        <hr class="hr-1">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button class="btn btn-primary me-md-2" type="button">댓글보기</button>
+                            <button class="btn btn-primary" type="button">댓글작성</button>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
             <div class="col">
-              <div class="card h-100">              
-                <div class="card-body">
-                  <h5 class="card-title">여기에 제목이 들어갑니다</h5>
-                  <p class="card-text">여기에 내용이 들어갑니다</p>
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">여기에 제목이 들어갑니다</h5>
+                        <p class="card-text">여기에 내용이 들어갑니다내용이 길어지면 카드가 길어지나요 확인한번 해보겠습니다</p>
+                        <hr class="hr-1">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button class="btn btn-primary me-md-2" type="button">댓글보기</button>
+                            <button class="btn btn-primary" type="button">댓글작성</button>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
             <div class="col">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">여기에 제목이 들어갑니다</h5>
-                  <p class="card-text">여기에 내용이 들어갑니다</p>
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">여기에 제목이 들어갑니다</h5>
+                        <p class="card-text">여기에 내용이 들어갑니다내용이 길어지면 카드가 길어지나요 확인한번 해보겠습니다</p>
+                        <hr class="hr-1">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button class="btn btn-primary me-md-2" type="button">댓글보기</button>
+                            <button class="btn btn-primary" type="button">댓글작성</button>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">여기에 제목이 들어갑니다</h5>
+                        <p class="card-text">여기에 내용이 들어갑니다내용이 길어지면 카드가 길어지나요 확인한번 해보겠습니다</p>
+                        <hr class="hr-1">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button class="btn btn-primary me-md-2" type="button">댓글보기</button>
+                            <button class="btn btn-primary" type="button">댓글작성</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-    
+    <hr class="hr-1">
+    영상 들어가는 자리
+
 </body>
 
 </html>
